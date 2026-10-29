@@ -1,0 +1,82 @@
+# build artifacts
+dist/
+build/
+coverage/
+.temp/
+**/dist/
+**/build/
+**/coverage/
+*.tsbuildinfo
+
+# dependencies
+node_modules/
+**/node_modules/
+
+# environment files
+.env
+.env.*
+**/.env
+**/.env.*
+apps/api/.env
+apps/web/.env
+!.env.example
+!**/.env.example
+!**/.env.production.example
+# Plantillas de perfil (.env.demo.example, .env.preparacion.example,
+# .env.produccion.example): sin secretos. Los perfiles reales (.env.demo,
+# .env.preparacion, .env.produccion) y el selector
+# (.env.active) nunca se versionan.
+!**/.env.*.example
+
+# logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# OS
+.DS_Store
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# note:
+# apps/web is tracked as source code.
+# only its generated artifacts and real .env files are ignored by the recursive rules above.
+
+# datos reales de una institucion (PII: nombres, documentos de identidad):
+# datasets, seeds y documentos propios de una instalacion. Nunca deben
+# versionarse; el repositorio solo contiene datos ficticios.
+apps/api/resources/
+docs/institucion-actual/
+database/seeds/*_real.sql
+
+# backups de base de datos (.bak): pueden contener datos reales de personal.
+# Nunca deben versionarse. Se conserva la carpeta via .gitkeep.
+database/backups/*.bak
+
+# configuracion local de asistentes de codigo
+.claude/

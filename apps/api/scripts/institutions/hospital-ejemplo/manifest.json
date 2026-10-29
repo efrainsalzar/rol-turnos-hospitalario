@@ -1,0 +1,9 @@
+{
+  "id": "ejemplo",
+  "nombre": "Hospital de Ejemplo",
+  "descripcion": "Institucion ficticia de referencia: organigrama de 4 departamentos y 12 servicios/unidades. Plantilla para agregar una institucion nueva.",
+  "version": "1.0.0",
+  "archivosRequeridos": [
+    "database/seeds/ejemplo-001_organizacion.sql"
+  ]
+}

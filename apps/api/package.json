@@ -1,0 +1,17 @@
+{
+  "name": "@roles-turnos/api",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix ../.. run build:api",
+    "format": "npm --prefix ../.. run format",
+    "start": "npm --prefix ../.. run start",
+    "start:dev": "npm --prefix ../.. run start:dev",
+    "start:debug": "npm --prefix ../.. run start:debug",
+    "start:prod": "npm --prefix ../.. run start:prod",
+    "lint": "npm --prefix ../.. run lint:api",
+    "test": "npm --prefix ../.. run test",
+    "test:watch": "npm --prefix ../.. run test:watch",
+    "test:cov": "npm --prefix ../.. run test:cov",
+    "test:e2e": "npm --prefix ../.. run test:e2e"
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "name": "roles-turnos",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Tharmmy Moon",
+  "private": true,
+  "workspaces": [
+    "apps/api"
+  ],
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "doctor": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/doctor.ts",
+    "clean": "rimraf dist coverage .temp apps/web/dist",
+    "clean:api": "rimraf dist/apps/api coverage/apps/api",
+    "clean:web": "rimraf apps/web/dist",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "npm run clean:api && node ./node_modules/typescript/bin/tsc -p apps/api/tsconfig.build.json",
+    "build:api:clean": "npm run build:api",
+    "build:web": "npm --prefix apps/web run build",
+    "format": "node ./node_modules/prettier/bin/prettier.cjs --write \"apps/api/src/**/*.ts\" \"apps/api/test/**/*.ts\" \"apps/web/src/**/*.{js,jsx,ts,tsx,css}\" \"apps/web/*.json\" \"apps/web/*.mjs\" \"apps/web/*.md\"",
+    "start": "npm run clean:api && node ./node_modules/@nestjs/cli/bin/nest.js start --config apps/api/nest-cli.json --path apps/api/tsconfig.build.json",
+    "start:dev": "npm run clean:api && node ./node_modules/@nestjs/cli/bin/nest.js start --config apps/api/nest-cli.json --path apps/api/tsconfig.build.json --watch",
+    "start:debug": "npm run clean:api && node ./node_modules/@nestjs/cli/bin/nest.js start --config apps/api/nest-cli.json --path apps/api/tsconfig.build.json --debug --watch",
+    "start:prod": "node dist/apps/api/src/main",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "npm run start:dev",
+    "dev:web": "npm --prefix apps/web run start",
+    "env:demo": "powershell -ExecutionPolicy Bypass -File .\\scripts\\set-api-env.ps1 demo",
+    "env:preparacion": "powershell -ExecutionPolicy Bypass -File .\\scripts\\set-api-env.ps1 preparacion",
+    "env:produccion": "powershell -ExecutionPolicy Bypass -File .\\scripts\\set-api-env.ps1 produccion",
+    "env:status": "powershell -ExecutionPolicy Bypass -File .\\scripts\\show-runtime-profile.ps1",
+    "env:access:local": "powershell -ExecutionPolicy Bypass -File .\\scripts\\set-access-profile.ps1 local",
+    "env:access:intranet-local": "powershell -ExecutionPolicy Bypass -File .\\scripts\\set-access-profile.ps1 intranet-local",
+    "migrate:api": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/run-migrations-current-env.ts",
+    "seed:demo": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/seed-datos-demo-ficticio.ts",
+    "reset:db": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/reset-db-clean.ts",
+    "seed:system": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/seed-system-base.ts",
+    "seed:institution": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/seed-institution.ts",
+    "sync:personal:validate": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/sync-personal-dry-run.ts",
+    "sync:personal:conflicts": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/report-personal-conflicts.ts",
+    "sync:personal:apply": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/sync-personal-apply.ts --only-approved",
+    "backup:api": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/backup-current-env-db.ts",
+    "restore:api": "node -r ts-node/register -r tsconfig-paths/register apps/api/scripts/restore-current-env-db.ts",
+    "lint": "npm run lint:api && npm run lint:web",
+    "lint:api": "node ./node_modules/eslint/bin/eslint.js --config apps/api/eslint.config.mjs \"apps/api/src/**/*.ts\" --fix",
+    "lint:web": "npm --prefix apps/web run lint",
+    "typecheck:api": "node ./node_modules/typescript/bin/tsc -p apps/api/tsconfig.json",
+    "test": "node ./node_modules/jest/bin/jest.js --runInBand",
+    "test:watch": "node ./node_modules/jest/bin/jest.js --watch",
+    "test:cov": "node ./node_modules/jest/bin/jest.js --coverage --runInBand",
+    "test:e2e": "node ./node_modules/jest/bin/jest.js --config ./apps/api/test/jest-e2e.json --runInBand"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/throttler": "^6.5.0",
+    "bcryptjs": "^3.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "compression": "^1.8.1",
+    "exceljs": "^4.4.0",
+    "mssql": "^12.5.0",
+    "playwright-core": "^1.59.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.28"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.1",
+    "@swc/cli": "^0.7.10",
+    "@swc/core": "^1.16.20",
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/mssql": "^12.3.0",
+    "@types/node": "^24.0.0",
+    "@types/supertest": "^7.0.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
+    "globals": "^17.0.0",
+    "jest": "^30.0.0",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.1.3",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "apps/api/src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": [
+        "ts-jest",
+        {
+          "tsconfig": "<rootDir>/../tsconfig.spec.json"
+        }
+      ]
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../../coverage/apps/api",
+    "testEnvironment": "node"
+  }
+}

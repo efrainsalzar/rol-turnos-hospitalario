@@ -1,0 +1,34 @@
+export interface AsignacionConsulta {
+  id: number;
+  idPersonal: number;
+  codigoPersonal: string | null;
+  ci: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string | null;
+  nombres: string;
+  nombreCompleto: string;
+  idServicio: number | null;
+  codigoServicio: string | null;
+  nombreServicio: string | null;
+  idDepartamento: number | null;
+  codigoDepartamento: string | null;
+  nombreDepartamento: string | null;
+  nombreNivelCargo: string | null;
+  idTipoContrato: number;
+  codigoTipoContrato: string | null;
+  nombreTipoContrato: string | null;
+  idRolFuncional: number | null;
+  codigoRolFuncional: string | null;
+  nombreRolFuncional: string | null;
+  esJefaturaRolFuncional: boolean;
+  codigoFuenteItem: string | null;
+  idCargaHoraria: number | null;
+  codigoCargaHoraria: string | null;
+  nombreCargaHoraria: string | null;
+  nroItem: string | null;
+  tipoAsignacion: string;
+  fechaInicio: Date;
+  fechaFin: Date | null;
+  activo: boolean;
+  tieneUsuario: boolean;
+}
